@@ -27,6 +27,7 @@ public:
 private:
     std::shared_ptr<GLuint> m_id;
 
+    static GLuint* generate(Type type) noexcept;
     static void deleter(GLuint* ptr) noexcept;
 }; // class Shader
     

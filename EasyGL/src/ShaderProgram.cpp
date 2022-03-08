@@ -6,6 +6,12 @@ namespace EasyGL
 {
 
 // private static 
+GLuint* ShaderProgram::generate() noexcept
+{
+    return new GLuint{glCreateProgram()};
+}
+
+// private static 
 void ShaderProgram::deleter(GLuint* ptr) noexcept
 {
     glDeleteProgram(*ptr); 
@@ -18,7 +24,7 @@ ShaderProgram::~ShaderProgram() noexcept
 }
 
 ShaderProgram::ShaderProgram() noexcept:
-    m_id(new GLuint{glCreateProgram()}, ShaderProgram::deleter)
+    m_id(ShaderProgram::generate(), ShaderProgram::deleter)
 {
     INFO("ShaderProgram ID: %u\n", *m_id);
 }

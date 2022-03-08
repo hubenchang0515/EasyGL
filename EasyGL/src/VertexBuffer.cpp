@@ -4,10 +4,10 @@ namespace EasyGL
 {
 
 // private static 
-GLuint VertexBuffer::generate() noexcept
+GLuint* VertexBuffer::generate() noexcept
 {
-    GLuint id;
-    glGenBuffers(1, &id);
+    GLuint* id = new GLuint{0};
+    glGenBuffers(1, id);
     return id;
 }
 
@@ -24,7 +24,7 @@ VertexBuffer::~VertexBuffer() noexcept
 }
 
 VertexBuffer::VertexBuffer() noexcept:
-    m_id{new GLuint{VertexBuffer::generate()}, VertexBuffer::deleter}
+    m_id{VertexBuffer::generate(), VertexBuffer::deleter}
 {
     INFO("VertexBuffer ID: %u\n", *m_id);
 }

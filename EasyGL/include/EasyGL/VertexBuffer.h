@@ -23,7 +23,7 @@ public:
 private:
     std::shared_ptr<GLuint> m_id;
 
-    static GLuint generate() noexcept;
+    static GLuint* generate() noexcept;
     static void deleter(GLuint* ptr) noexcept;
 
 }; // class VertexBuffer

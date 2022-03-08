@@ -4,10 +4,10 @@ namespace EasyGL
 {
 
 // private static 
-GLuint VertexArray::generate() noexcept
+GLuint* VertexArray::generate() noexcept
 {
-    GLuint id;
-    glGenVertexArrays(1, &id);
+    GLuint* id = new GLuint{0};
+    glGenVertexArrays(1, id);
     return id;
 }
 
@@ -24,7 +24,7 @@ VertexArray::~VertexArray() noexcept
 }
 
 VertexArray::VertexArray() noexcept:
-    m_id{new GLuint{VertexArray::generate()}, VertexArray::deleter}
+    m_id{VertexArray::generate(), VertexArray::deleter}
 {
     INFO("VertexArray ID: %u\n", *m_id);
 }

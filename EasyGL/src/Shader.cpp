@@ -4,6 +4,12 @@ namespace EasyGL
 {
 
 // private static 
+GLuint* Shader::generate(Type type) noexcept
+{
+    return new GLuint{glCreateShader(static_cast<GLenum>(type))};
+}
+
+// private static 
 void Shader::deleter(GLuint* ptr) noexcept
 {
     glDeleteShader(*ptr); 
@@ -16,7 +22,7 @@ Shader::~Shader() noexcept
 }
 
 Shader::Shader(Type type, const string& src) noexcept:
-    m_id{new GLuint{glCreateShader(static_cast<GLenum>(type))}, Shader::deleter}
+    m_id{Shader::generate(type), Shader::deleter}
 {
     INFO("Shader ID: %u\n", *m_id);
     const char * const ptr = src.data();
