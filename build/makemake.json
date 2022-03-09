@@ -30,6 +30,22 @@
             "depends": [
                 "libEasyGL.a"
             ]
+        },
+
+        {
+            "name": "texture",
+            "type": "executable",
+            "cflags": "-O2 -W -Wall -I../EasyGL/include -I../glad/include",
+            "cxxflags": "-O2 -W -Wall -I../EasyGL/include -I../glad/include",
+            "libs": "-lglfw -ldl",
+            "libs.windows": "-lglfw3 -lgdi32",
+            "sources": [
+                "../glad/src/glad.c",
+                "../demos/texture.cpp"
+            ],
+            "depends": [
+                "libEasyGL.a"
+            ]
         }
     ]
 }

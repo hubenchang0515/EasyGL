@@ -2,7 +2,7 @@
 
 .PHONY: all install uninstall clean
 
-all: libEasyGL.a triangle
+all: libEasyGL.a triangle texture
 
 install: all
 	 install -m0644 libEasyGL.a /usr/lib && install -m0644 -d /usr/include/EasyGL && install -m0644 ../EasyGL/include/EasyGL/* /usr/include/EasyGL
@@ -11,10 +11,11 @@ uninstall:
 	 rm -rf /usr/lib/libEasyGL.a /usr/include/EasyGL
 
 clean:
-	 rm -f ShaderProgram.o VertexBuffer.o Texture.o VertexArray.o Shader.o Application.o
+	 rm -f ShaderProgram.o Buffer.o Texture.o VertexArray.o Shader.o Application.o
 	 rm -f glad.o triangle.o
+	 rm -f glad.o texture.o
 
-libEasyGL.a : ShaderProgram.o VertexBuffer.o Texture.o VertexArray.o Shader.o Application.o  
+libEasyGL.a : ShaderProgram.o Buffer.o Texture.o VertexArray.o Shader.o Application.o  
 	ar rsc $@ $^ 
 
 ShaderProgram.o: ../EasyGL/src/ShaderProgram.cpp \
@@ -23,19 +24,19 @@ ShaderProgram.o: ../EasyGL/src/ShaderProgram.cpp \
  ../glad/include/KHR/khrplatform.h ../EasyGL/include/EasyGL/Shader.h
 	g++ -c  ../EasyGL/src/ShaderProgram.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 
 
-VertexBuffer.o: ../EasyGL/src/VertexBuffer.cpp \
- ../EasyGL/include/EasyGL/VertexBuffer.h \
+Buffer.o: ../EasyGL/src/Buffer.cpp ../EasyGL/include/EasyGL/Buffer.h \
  ../EasyGL/include/EasyGL/common.h ../glad/include/glad/glad.h \
  ../glad/include/KHR/khrplatform.h
-	g++ -c  ../EasyGL/src/VertexBuffer.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 
+	g++ -c  ../EasyGL/src/Buffer.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 
 
-Texture.o: ../EasyGL/src/Texture.cpp
+Texture.o: ../EasyGL/src/Texture.cpp ../EasyGL/include/EasyGL/Texture.h \
+ ../EasyGL/include/EasyGL/common.h ../glad/include/glad/glad.h \
+ ../glad/include/KHR/khrplatform.h
 	g++ -c  ../EasyGL/src/Texture.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 
 
 VertexArray.o: ../EasyGL/src/VertexArray.cpp \
  ../EasyGL/include/EasyGL/VertexArray.h ../EasyGL/include/EasyGL/common.h \
- ../glad/include/glad/glad.h ../glad/include/KHR/khrplatform.h \
- ../EasyGL/include/EasyGL/VertexBuffer.h
+ ../glad/include/glad/glad.h ../glad/include/KHR/khrplatform.h
 	g++ -c  ../EasyGL/src/VertexArray.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 
 
 Shader.o: ../EasyGL/src/Shader.cpp ../EasyGL/include/EasyGL/Shader.h \
@@ -60,8 +61,22 @@ triangle.o: ../demos/triangle.cpp ../EasyGL/include/EasyGL/EasyGL.h \
  ../glad/include/KHR/khrplatform.h ../EasyGL/include/EasyGL/Application.h \
  ../EasyGL/include/EasyGL/Shader.h \
  ../EasyGL/include/EasyGL/ShaderProgram.h \
- ../EasyGL/include/EasyGL/VertexBuffer.h \
- ../EasyGL/include/EasyGL/VertexArray.h \
+ ../EasyGL/include/EasyGL/Buffer.h ../EasyGL/include/EasyGL/VertexArray.h \
  ../EasyGL/include/EasyGL/Texture.h
 	g++ -c  ../demos/triangle.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 
 
+texture : glad.o texture.o libEasyGL.a 
+	g++ -o $@ $^ -lglfw -ldl 
+
+glad.o: ../glad/src/glad.c ../glad/include/glad/glad.h \
+ ../glad/include/KHR/khrplatform.h
+	gcc -c ../glad/src/glad.c -O2 -W -Wall -I../EasyGL/include -I../glad/include 
+
+texture.o: ../demos/texture.cpp ../EasyGL/include/EasyGL/EasyGL.h \
+ ../EasyGL/include/EasyGL/common.h ../glad/include/glad/glad.h \
+ ../glad/include/KHR/khrplatform.h ../EasyGL/include/EasyGL/Application.h \
+ ../EasyGL/include/EasyGL/Shader.h \
+ ../EasyGL/include/EasyGL/ShaderProgram.h \
+ ../EasyGL/include/EasyGL/Buffer.h ../EasyGL/include/EasyGL/VertexArray.h \
+ ../EasyGL/include/EasyGL/Texture.h ../demos/stb_image.h
+	g++ -c  ../demos/texture.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 

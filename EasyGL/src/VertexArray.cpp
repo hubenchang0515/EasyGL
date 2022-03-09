@@ -39,14 +39,16 @@ void VertexArray::bind() const noexcept
     glBindVertexArray(*m_id);
 }
 
-void VertexArray::unbind() const noexcept
+void VertexArray::unbind() noexcept
 {
     glBindVertexArray(0);
 }
 
-void VertexArray::setData(GLsizeiptr size, const void* data, Usage usage) const noexcept
+void VertexArray::attribPointer(GLuint index, GLint size, GLenum type, bool normalized, GLsizei stride, const void *pointer) const noexcept
 {
-    glBufferData(GL_ARRAY_BUFFER, size, data, static_cast<GLenum>(usage));
+    this->bind();
+    glVertexAttribPointer(index, size, type, static_cast<GLboolean>(normalized), stride, pointer);
+    glEnableVertexAttribArray(index);
 }
 
 }; // namespace EasyGL

@@ -5,7 +5,7 @@
 #include <EasyGL/Application.h>
 #include <EasyGL/Shader.h>
 #include <EasyGL/ShaderProgram.h>
-#include <EasyGL/VertexBuffer.h>
+#include <EasyGL/Buffer.h>
 #include <EasyGL/VertexArray.h>
 #include <EasyGL/Texture.h>
 

@@ -22,7 +22,7 @@ const char *fragmentShaderSource =
     "   FragColor = vec4(outColor, 1.0);\n"
     "}\n\0";
 
-int main()
+int main(void)
 {
     Application::init();
     Application app{"EasyGL", 640, 480};
@@ -40,17 +40,13 @@ int main()
     };
 
     VertexBuffer vertexBuffer;
+    vertexBuffer.bind();
+    vertexBuffer.setData(sizeof(vertices), vertices, Buffer::Usage::StreamDraw);
+
     VertexArray vertexArray;
     vertexArray.bind();
-    vertexBuffer.bind();
-    vertexArray.setData(sizeof(vertices), vertices, VertexArray::Usage::StreamDraw);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(sizeof(GLfloat) * 3));
-    glEnableVertexAttribArray(1);
-    vertexArray.unbind();
+    vertexArray.attribPointer(0, 3, GL_FLOAT, false, 6 * sizeof(float), (void*)0);
+    vertexArray.attribPointer(1, 3, GL_FLOAT, false, 6 * sizeof(float), (void*)(sizeof(GLfloat) * 3));
 
     while (app.update())
     {

@@ -6,6 +6,9 @@
 #include <cstdio>
 #include <memory>
 
+namespace EasyGL
+{
+
 // enum of LOG_LEVEL
 #define    LOG_LEVEL_ERROR      0
 #define    LOG_LEVEL_WARNING    1
@@ -50,5 +53,7 @@
 #ifndef EASYGL_TEMP_BUFF_MAX
     #define EASYGL_TEMP_BUFF_MAX 256
 #endif // EASYGL_TEMP_BUFF_MAX
+
+} // namespace EasyGL
 
 #endif // EASYGL_LOG_HPP
