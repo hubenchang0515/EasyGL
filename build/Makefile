@@ -2,7 +2,7 @@
 
 .PHONY: all install uninstall clean
 
-all: libEasyGL.a triangle texture
+all: libEasyGL.a triangle image
 
 install: all
 	 install -m0644 libEasyGL.a /usr/lib && install -m0644 -d /usr/include/EasyGL && install -m0644 ../EasyGL/include/EasyGL/* /usr/include/EasyGL
@@ -65,18 +65,18 @@ triangle.o: ../demos/triangle.cpp ../EasyGL/include/EasyGL/EasyGL.h \
  ../EasyGL/include/EasyGL/Texture.h
 	g++ -c  ../demos/triangle.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 
 
-texture : glad.o texture.o libEasyGL.a 
+image : glad.o image.o libEasyGL.a 
 	g++ -o $@ $^ -lglfw -ldl 
 
 glad.o: ../glad/src/glad.c ../glad/include/glad/glad.h \
  ../glad/include/KHR/khrplatform.h
 	gcc -c ../glad/src/glad.c -O2 -W -Wall -I../EasyGL/include -I../glad/include 
 
-texture.o: ../demos/texture.cpp ../EasyGL/include/EasyGL/EasyGL.h \
+image.o: ../demos/image.cpp ../EasyGL/include/EasyGL/EasyGL.h \
  ../EasyGL/include/EasyGL/common.h ../glad/include/glad/glad.h \
  ../glad/include/KHR/khrplatform.h ../EasyGL/include/EasyGL/Application.h \
  ../EasyGL/include/EasyGL/Shader.h \
  ../EasyGL/include/EasyGL/ShaderProgram.h \
  ../EasyGL/include/EasyGL/Buffer.h ../EasyGL/include/EasyGL/VertexArray.h \
  ../EasyGL/include/EasyGL/Texture.h ../demos/stb_image.h
-	g++ -c  ../demos/texture.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 
+	g++ -c  ../demos/image.cpp -O2 -W -Wall -I../EasyGL/include -I../glad/include 
