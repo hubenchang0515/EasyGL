@@ -17,6 +17,12 @@
         },
 
         {
+            "name": "glad.o",
+            "type": "other",
+            "cmd": "gcc -c ../glad/src/glad.c -O2 -W -Wall -I../glad/include"
+        },
+
+        {
             "name": "triangle",
             "type": "executable",
             "cflags": "-O2 -W -Wall -I../EasyGL/include -I../glad/include",
@@ -24,11 +30,11 @@
             "libs": "-lglfw -ldl",
             "libs.windows": "-lglfw3 -lgdi32",
             "sources": [
-                "../glad/src/glad.c",
                 "../demos/triangle.cpp"
             ],
             "depends": [
-                "libEasyGL.a"
+                "libEasyGL.a",
+                "glad.o"
             ]
         },
 
@@ -40,11 +46,11 @@
             "libs": "-lglfw -ldl",
             "libs.windows": "-lglfw3 -lgdi32",
             "sources": [
-                "../glad/src/glad.c",
                 "../demos/image.cpp"
             ],
             "depends": [
-                "libEasyGL.a"
+                "libEasyGL.a",
+                "glad.o"
             ]
         }
     ]
