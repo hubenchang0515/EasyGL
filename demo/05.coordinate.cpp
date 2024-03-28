@@ -45,8 +45,8 @@ int main(void)
 {
     Window window{"EasyGL", 640, 640};
     Application::enable(GL_DEPTH_TEST);
-    Shader vertexShader{Shader::Type::VertexShader, vertexShaderSource};
-    Shader fragmentShader{Shader::Type::FragmentShader, fragmentShaderSource};
+    VertexShader vertexShader{vertexShaderSource};
+    FragmentShader fragmentShader{fragmentShaderSource};
     ShaderProgram shaderProgram;
     shaderProgram.attach(vertexShader);
     shaderProgram.attach(fragmentShader);
@@ -94,16 +94,13 @@ int main(void)
     };
 
     VertexBuffer vertexBuffer;
-    vertexBuffer.bind();
     vertexBuffer.setData(sizeof(vertices), vertices, VertexBuffer::Usage::StreamDraw);
 
     VertexArray vertexArray;
-    vertexArray.bind();
     vertexArray.attribPointer(0, 3, GL_FLOAT, false, 5 * sizeof(float), (void*)0);
     vertexArray.attribPointer(1, 2, GL_FLOAT, false, 5 * sizeof(float), (void*)(sizeof(GLfloat) * 3));
 
     IndexBuffer indexBuffer;
-    indexBuffer.bind();
     indexBuffer.setData(sizeof(indices), indices, IndexBuffer::Usage::StaticDraw);
 
     int width, height, channels;
