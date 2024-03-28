@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(EasyGL-Demo LANGUAGES CXX)
 
-set(DEMO_LIST "01.triangle" "02.transform" "03.texture" "04.cube" "05.coordinate" "06.camera")
+set(DEMO_LIST "01.triangle" "02.transform" "03.texture" "04.cube" "05.coordinate" "06.camera" "07.lighting")
 
 foreach(DEMO ${DEMO_LIST})
     add_executable(${DEMO} ${DEMO}.cpp)
