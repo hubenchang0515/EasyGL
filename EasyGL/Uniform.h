@@ -25,13 +25,13 @@ struct Uniform
     }
 
     template<typename... Args>
-    static void set(GLint location, Args&&... value)
+    static void set(GLint location, Args... value)
     {
         (*ValueUniformSetter<Args...>::setter)(location, value...);
     }
 
     template<typename... Args>
-    static void set(GLuint programId, const std::string& name, Args&&... value)
+    static void set(GLuint programId, const std::string& name, Args... value)
     {
         (*ValueUniformSetter<Args...>::setter)(getLocation(programId, name), value...);
     }

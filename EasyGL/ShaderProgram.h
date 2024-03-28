@@ -23,7 +23,7 @@ public:
     void use() const noexcept;
     
     template<typename... T>
-    void setValue(const std::string& name, T&&... value...)
+    void setValue(const std::string& name, T... value...)
     {
         Uniform<T...>::set(id(), name, value...);
     }
