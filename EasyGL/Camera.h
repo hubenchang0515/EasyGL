@@ -19,7 +19,6 @@ public:
     Camera(glm::vec3 pos=glm::vec3{0.0f, 0.0f, 0.0f}) noexcept;
     Camera(const Camera& src) noexcept;
 
-    
     void setPos(glm::vec3 pos) noexcept;
     void setYaw(float yaw) noexcept;
     void setPitch(float pitch) noexcept;

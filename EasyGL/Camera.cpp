@@ -61,6 +61,16 @@ void Camera::defaultKeyInputHandler(Camera& self, Window& window, float deltaTim
     {
         self.m_roll += 1.0f;
     }
+
+    if (window.getKey(GLFW_KEY_SPACE) == GLFW_PRESS)
+    {
+        self.m_pos += delta * self.up();
+    }
+
+    if (window.getKey(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    {
+        self.m_pos -= delta * self.up();
+    }
 }
 
 
